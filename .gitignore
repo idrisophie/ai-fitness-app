@@ -1,0 +1,19 @@
+# Plan file
+plan.md
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Maven
+target/
+*.jar
+*.war
+*.ear
+
+# Logs
+*.log

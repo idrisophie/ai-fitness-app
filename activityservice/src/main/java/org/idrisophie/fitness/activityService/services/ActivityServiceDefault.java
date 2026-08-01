@@ -8,6 +8,8 @@ import org.idrisophie.fitness.activityService.repositories.ActivityRepository;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -20,5 +22,18 @@ public class ActivityServiceDefault implements ActivityService {
         Activity activity = activityMapper.toEntity(request);
         Activity savedActivity = repository.save(activity);
         return activityMapper.toResponse(savedActivity);
+    }
+
+    public List<ActivityResponse> getUserActivities(String userId){
+        List<Activity> activities = repository.findByUserId(userId);
+        return activities.stream()
+                .map(activityMapper::toResponse)
+                .collect(Collectors.toList());
+    }
+
+    public ActivityResponse getActivityById(String activityId){
+        Activity activity = repository.findById(activityId)
+                .orElseThrow(() -> new RuntimeException("Activity not found"));
+        return activityMapper.toResponse(activity);
     }
 }
