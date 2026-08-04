@@ -1,6 +1,7 @@
-# Plan file
+# md files
 plan.md
-
+notes.md
+ARCHITECTURE.md
 # IDE
 .idea/
 .vscode/

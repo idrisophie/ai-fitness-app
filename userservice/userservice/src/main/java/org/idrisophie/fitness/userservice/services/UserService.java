@@ -4,6 +4,8 @@ import org.idrisophie.fitness.userservice.dto.RegistreRequest;
 import org.idrisophie.fitness.userservice.dto.UserResponse;
 
 public interface UserService {
-    UserResponse registre(RegistreRequest request);
-    UserResponse getUserProfile(String userId);
+   public UserResponse registre(RegistreRequest request);
+   public UserResponse getUserProfile(String userId);
+
+   public Boolean existeByUserId(String userId);
 }

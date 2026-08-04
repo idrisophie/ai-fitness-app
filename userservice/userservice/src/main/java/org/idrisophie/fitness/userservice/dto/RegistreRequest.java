@@ -12,8 +12,16 @@ public class RegistreRequest {
     private String email;
 
     @NotBlank(message = "Password is required")
-    @Size(min = 6, message = "Password musr be atleast of 6 characters")
+    @Size(min = 6, message = "Password must be atleast of 6 characters")
     private String password;
     private String firstName;
-    private String lastName;    
+    private String lastName;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

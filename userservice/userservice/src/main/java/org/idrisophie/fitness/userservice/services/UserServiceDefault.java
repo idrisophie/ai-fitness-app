@@ -36,4 +36,9 @@ public class UserServiceDefault implements UserService {
                     .orElseThrow( () -> new ResourceNotFoundException("User Not Found"));
         return userMapper.toResponse(user);
     }
+
+    @Override
+    public Boolean existeByUserId(String userId) {
+        return repository.existsById(userId);
+    }
 }

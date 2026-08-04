@@ -17,8 +17,20 @@ public class ActivityServiceDefault implements ActivityService {
 
     private final ActivityRepository repository;
     private final ActivityMapper activityMapper;
-    
+    private final UserValidationService userValidationService;
+
+    public ActivityServiceDefault(ActivityRepository repository, ActivityMapper activityMapper, UserValidationService userValidationService) {
+        this.repository = repository;
+        this.activityMapper = activityMapper;
+        this.userValidationService = userValidationService;
+    }
+
     public ActivityResponse trackActivity(ActivityRequest request){
+        boolean isValidUser = userValidationService.validateUser(request.getUserId());
+        if(!isValidUser){
+            throw new RuntimeException("Invalid User: "+request.getUserId());
+        }
+
         Activity activity = activityMapper.toEntity(request);
         Activity savedActivity = repository.save(activity);
         return activityMapper.toResponse(savedActivity);
