@@ -12,6 +12,10 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
 public class UserValidationService {
     private final WebClient userServiceWebClient;
 
+    public UserValidationService(WebClient userServiceWebClient) {
+        this.userServiceWebClient = userServiceWebClient;
+    }
+
     public boolean validateUser(String userId) {
         try {
             return userServiceWebClient
