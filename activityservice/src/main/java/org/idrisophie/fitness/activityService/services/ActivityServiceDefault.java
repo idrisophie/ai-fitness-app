@@ -5,25 +5,30 @@ import org.idrisophie.fitness.activityService.dto.ActivityResponse;
 import org.idrisophie.fitness.activityService.mappers.ActivityMapper;
 import org.idrisophie.fitness.activityService.models.Activity;
 import org.idrisophie.fitness.activityService.repositories.ActivityRepository;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ActivityServiceDefault implements ActivityService {
 
     private final ActivityRepository repository;
     private final ActivityMapper activityMapper;
     private final UserValidationService userValidationService;
-
-    public ActivityServiceDefault(ActivityRepository repository, ActivityMapper activityMapper, UserValidationService userValidationService) {
-        this.repository = repository;
-        this.activityMapper = activityMapper;
-        this.userValidationService = userValidationService;
-    }
+    private final RabbitTemplate rabbitTemplate;
+    
+    @Value("${rabbitmq.exchange.name}")
+    private String exchange;
+    @Value("${rabbitmq.exchange.key}")
+    private String routingkey;
 
     public ActivityResponse trackActivity(ActivityRequest request){
         boolean isValidUser = userValidationService.validateUser(request.getUserId());
@@ -33,6 +38,13 @@ public class ActivityServiceDefault implements ActivityService {
 
         Activity activity = activityMapper.toEntity(request);
         Activity savedActivity = repository.save(activity);
+
+        //Publish to RabbitMQ for AI Processing
+        try {
+            rabbitTemplate.convertAndSend(exchange, routingkey, savedActivity);
+        } catch (Exception e) {
+            log.error("Failed to publish activity to rabbitMQ : ", e);
+        }
         return activityMapper.toResponse(savedActivity);
     }
 

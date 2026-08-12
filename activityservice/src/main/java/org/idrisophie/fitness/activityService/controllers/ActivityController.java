@@ -23,10 +23,6 @@ public class ActivityController {
     
     private final ActivityServiceDefault activityService;
 
-    public ActivityController(ActivityServiceDefault activityService) {
-        this.activityService = activityService;
-    }
-
     @PostMapping
     public ResponseEntity<ActivityResponse> trackActivity(@RequestBody ActivityRequest request){
         return ResponseEntity.ok(activityService.trackActivity(request));
