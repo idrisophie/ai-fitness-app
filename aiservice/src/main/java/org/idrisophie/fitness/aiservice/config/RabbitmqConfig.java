@@ -1,4 +1,4 @@
-package org.idrisophie.fitness.activityService.config;
+package org.idrisophie.fitness.aiservice.config;
 
 import org.springframework.context.annotation.*;
 import org.springframework.amqp.core.Binding;
