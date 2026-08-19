@@ -1,6 +1,5 @@
 package org.idrisophie.fitness.aiservice.models;
 
-import org.springframework.data.annotation.*;
 import lombok.Data;
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -9,6 +8,7 @@ import java.util.Map;
 public class Activity {
     private String id;
     private String userId;
+    private String type;
     private Integer duration;
     private Integer caloriesBurned;
     private LocalDateTime startTime;
