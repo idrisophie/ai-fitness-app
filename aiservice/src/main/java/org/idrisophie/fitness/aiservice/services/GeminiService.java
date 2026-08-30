@@ -27,12 +27,13 @@ public class GeminiService {
             }
         );
 
-        String response = WebClient.post()
+        String response = webClient.post()
                 .uri(geminiApiUrl + geminiAPiKey)
                 .header("content-Type", "application/json")
                 .bodyValue(requestBody)
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();
+        return response;
     }
 }

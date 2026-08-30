@@ -4,23 +4,5 @@ server:
 spring:
   application:
     name: user-service
-  datasource:
-    url: jdbc:postgresql://localhost:5432/fitness_user_db
-    username: postgres
-    password: Moh@med100.
-  
-  jpa:
-    hibernate:
-      ddl-auto: update
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    show-sql: true
-  
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
-    register-with-eureka: true
-    fetch-registry: true
-  instance:
-    prefer-ip-address: true
-  
+  config:
+    import: optional:configserver:http://localhost:8888

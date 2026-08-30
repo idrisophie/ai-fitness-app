@@ -77,7 +77,7 @@ public class ActivityAIService {
 
         } catch (Exception e) {
             e.printStackTrace();
-            return new createDefaultRecommendation(activity);
+            return createDefaultRecommendation(activity);
         }
     }
 
@@ -112,7 +112,7 @@ public class ActivityAIService {
     private List<String> extractSafetyGuideline(JsonNode safetyNode){
         List<String> safety = new ArrayList<>();
         if (safetyNode.isArray()) {
-            safetyNode.forEach(item -> safety.add(item.asText());
+            safetyNode.forEach(item -> safety.add(item.asText()));
         }
                 return safety.isEmpty() ?
                         Collections.singletonList("No general safety provided") :
