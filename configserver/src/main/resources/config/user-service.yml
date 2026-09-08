@@ -15,6 +15,13 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
   
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/fitness-realm
+          jwk-set-uri: http://localhost:8080/realms/fitness-realm/protocol/openid-connect/certs
+  
 eureka:
   client:
     service-url:
@@ -23,4 +30,3 @@ eureka:
     fetch-registry: true
   instance:
     prefer-ip-address: true
-  

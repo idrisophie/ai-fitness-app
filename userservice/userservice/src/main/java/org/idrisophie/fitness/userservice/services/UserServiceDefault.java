@@ -25,6 +25,14 @@ public class UserServiceDefault implements UserService {
         if(repository.existsByEmail(request.getEmail())){
             throw new DuplicateResourceException("Email already exist!");
         }
+        
+        // Vérifier si keycloakId est fourni et s'assurer de son unicité
+        if(request.getKeycloakId() != null && !request.getKeycloakId().isEmpty()) {
+            if(repository.existsByKeycloakId(request.getKeycloakId())){
+                throw new DuplicateResourceException("Keycloak ID already exist!");
+            }
+        }
+        
         User user = userMapper.toEntity(request);
         User savedUser = repository.save(user);
         return userMapper.toResponse(savedUser);
@@ -40,5 +48,10 @@ public class UserServiceDefault implements UserService {
     @Override
     public Boolean existeByUserId(String userId) {
         return repository.existsById(userId);
+    }
+    
+    public User findByKeycloakId(String keycloakId) {
+        return repository.findByKeycloakId(keycloakId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with Keycloak ID: " + keycloakId));
     }
 }

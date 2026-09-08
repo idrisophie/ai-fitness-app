@@ -1,10 +1,8 @@
-package org.idrisophie.fitness.userservice.dto;
-
-import java.time.LocalDateTime;
-
-import org.idrisophie.fitness.userservice.models.UserRole;
+package org.idrisophie.fitness.gateway.users;
 
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 @Data
 public class UserResponse {
@@ -14,7 +12,6 @@ public class UserResponse {
     private String keycloakId;
     private String firstName;
     private String lastName;
-    private UserRole role = UserRole.USER;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

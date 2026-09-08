@@ -34,4 +34,21 @@ public class UserController {
         return ResponseEntity.ok(userService.existeByUserId(userId));
     }
 
+    @PostMapping("/test-user")
+    public ResponseEntity<String> createTestUser() {
+        RegistreRequest request = new RegistreRequest();
+        request.setEmail("test@example.com");
+        request.setPassword("password123");
+        request.setFirstName("Test");
+        request.setLastName("User");
+        request.setKeycloakId("test-keycloak-id-123");
+        
+        try {
+            UserResponse user = userService.registre(request);
+            return ResponseEntity.ok("Test user created: " + user.getEmail());
+        } catch (Exception e) {
+            return ResponseEntity.ok("Error creating test user: " + e.getMessage());
+        }
+    }
+
 }

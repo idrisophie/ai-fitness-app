@@ -18,7 +18,7 @@ public class RabbitmqConfig {
     @Value("${rabbitmq.exchange.name}")
     private String exchange;
 
-    @Value("${rabbitmq.exchange.key}")
+    @Value("${rabbitmq.routing.key}")
     private String routingkey;
 
     @Bean
@@ -33,7 +33,7 @@ public class RabbitmqConfig {
 
     @Bean
     public Binding activityBinding(Queue activityQueue, DirectExchange activityExchange){
-        return  BindingBuilder.bind(activityExchange).to(activityExchange).with("activity.tracking");    
+        return  BindingBuilder.bind(activityQueue).to(activityExchange).with(routingkey);    
     }
 
     @Bean

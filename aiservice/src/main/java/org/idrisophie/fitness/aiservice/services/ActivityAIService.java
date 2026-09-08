@@ -61,7 +61,7 @@ public class ActivityAIService {
 
             List<String> safety = extractSafetyGuideline(analysisJson.path("safety"));
             return Recommendation.builder()
-                    .acvtivityId(activity.getId())
+                    .activityId(activity.getId())
                     .userId(activity.getUserId())
                     .activityType(activity.getType())
                     .recommendation(fullAnalysis.toString().trim())
