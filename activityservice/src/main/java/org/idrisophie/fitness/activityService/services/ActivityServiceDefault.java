@@ -27,7 +27,7 @@ public class ActivityServiceDefault implements ActivityService {
     
     @Value("${rabbitmq.exchange.name}")
     private String exchange;
-    @Value("${rabbitmq.exchange.key}")
+    @Value("${rabbitmq.routing.key}")
     private String routingkey;
 
     public ActivityResponse trackActivity(ActivityRequest request){
