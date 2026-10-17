@@ -2,23 +2,6 @@
 
 Application microservices pour le suivi d'activités fitness avec recommandations personnalisées générées par IA (architecture event-driven).
 
-## 🏗️ Architecture
-
-┌─────────────┐ ┌──────────────┐ ┌─────────────┐
-│ Eureka Server│────▶│ Config Server │────▶│ API Gateway │
-└─────────────┘ └──────────────┘ └──────┬──────┘
-│
-┌─────────────────────────────┼─────────────────────┐
-▼ ▼ ▼
-┌─────────────────┐ ┌──────────────────┐ ┌─────────────────┐
-│ User Service │ │ Activity Service │ │ AI Service │
-│ (PostgreSQL) │ │ (MongoDB) │ │ (Gemini API) │
-└─────────────────┘ └────────┬──────────┘ └────────▲─────────┘
-│ │
-└──────── RabbitMQ ────┘
-(Exchange Direct, Queue durable)
-
-                 Authentification centralisée : Keycloak (OAuth2/OIDC, JWT)
 
 ## 🧩 Services
 
